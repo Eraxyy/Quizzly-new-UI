@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { Search, User, LogOut, X } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
@@ -97,7 +96,14 @@ const Header = ({ onSearch }: HeaderProps) => {
               </div>
             ) : (
               <>
-                {/* Navigation gauche - cachée quand search étendu */}
+                {/* Titre Quizzly à gauche */}
+                <div className="flex items-center">
+                  <h1 className="text-xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+                    Quizzly
+                  </h1>
+                </div>
+
+                {/* Navigation centrale */}
                 <nav className="hidden md:flex items-center space-x-8">
                   {navItems.map((item) => (
                     <Link
@@ -169,7 +175,9 @@ const Header = ({ onSearch }: HeaderProps) => {
                       </Button>
                       <Button 
                         onClick={() => handleAuthClick('register')}
-                        className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-sm"
+                        className={`bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-sm transition-all duration-500 ${
+                          isScrolled ? 'rounded-full' : ''
+                        }`}
                       >
                         Inscription
                       </Button>
