@@ -1,14 +1,14 @@
-
 import { useState } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import Header from '@/components/Header';
+import Footer from '@/components/Footer';
 import RankingCard from '@/components/RankingCard';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Badge } from '@/components/ui/badge';
 
 const Rankings = () => {
   const { user } = useAuth();
+  const [activeTab, setActiveTab] = useState('global');
 
   // Mock ranking data
   const globalRankings = [
@@ -51,6 +51,13 @@ const Rankings = () => {
       { id: '1', username: 'QuizMaster99', score: 780, rank: 3, quizzesCompleted: 12, avatar: undefined }
     ]
   };
+
+  const tabs = [
+    { id: 'global', label: 'Global', icon: '🌍' },
+    { id: 'weekly', label: 'Weekly', icon: '📅' },
+    { id: 'daily', label: 'Daily', icon: '⚡' },
+    { id: 'category', label: 'By Category', icon: '📚' }
+  ];
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-indigo-50">
@@ -96,16 +103,43 @@ const Rankings = () => {
           </Card>
         )}
 
-        {/* Rankings Tabs */}
-        <Tabs defaultValue="global" className="w-full">
-          <TabsList className="grid w-full grid-cols-4 mb-8">
-            <TabsTrigger value="global">Global</TabsTrigger>
-            <TabsTrigger value="weekly">Weekly</TabsTrigger>
-            <TabsTrigger value="daily">Daily</TabsTrigger>
-            <TabsTrigger value="category">By Category</TabsTrigger>
-          </TabsList>
+        {/* Custom Tab Navigation with Smooth Transition */}
+        <div className="mb-8">
+          <div className="relative bg-white rounded-full p-1 shadow-lg border border-gray-200 max-w-2xl mx-auto">
+            <div className="flex relative">
+              {/* Active tab indicator */}
+              <div 
+                className="absolute top-1 bottom-1 bg-gradient-to-r from-purple-600 to-blue-600 rounded-full transition-all duration-300 ease-in-out"
+                style={{
+                  width: `${100 / tabs.length}%`,
+                  transform: `translateX(${tabs.findIndex(tab => tab.id === activeTab) * 100}%)`
+                }}
+              />
+              
+              {/* Tab buttons */}
+              {tabs.map((tab) => (
+                <button
+                  key={tab.id}
+                  onClick={() => setActiveTab(tab.id)}
+                  className={`relative z-10 flex-1 py-3 px-4 text-sm font-medium rounded-full transition-colors duration-300 ${
+                    activeTab === tab.id 
+                      ? 'text-white' 
+                      : 'text-gray-600 hover:text-gray-900'
+                  }`}
+                >
+                  <span className="flex items-center justify-center space-x-2">
+                    <span>{tab.icon}</span>
+                    <span>{tab.label}</span>
+                  </span>
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
 
-          <TabsContent value="global" className="space-y-4">
+        {/* Tab Content */}
+        <div className="space-y-4">
+          {activeTab === 'global' && (
             <Card className="bg-white">
               <CardHeader>
                 <CardTitle className="flex items-center space-x-2">
@@ -129,9 +163,9 @@ const Rankings = () => {
                 )}
               </CardContent>
             </Card>
-          </TabsContent>
+          )}
 
-          <TabsContent value="weekly" className="space-y-4">
+          {activeTab === 'weekly' && (
             <Card className="bg-white">
               <CardHeader>
                 <CardTitle className="flex items-center space-x-2">
@@ -150,9 +184,9 @@ const Rankings = () => {
                 ))}
               </CardContent>
             </Card>
-          </TabsContent>
+          )}
 
-          <TabsContent value="daily" className="space-y-4">
+          {activeTab === 'daily' && (
             <Card className="bg-white">
               <CardHeader>
                 <CardTitle className="flex items-center space-x-2">
@@ -171,20 +205,21 @@ const Rankings = () => {
                 ))}
               </CardContent>
             </Card>
-          </TabsContent>
+          )}
 
-          <TabsContent value="category" className="space-y-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {Object.entries(categoryRankings).map(([category, rankings]) => (
-                <Card key={category} className="bg-white">
-                  <CardHeader>
-                    <CardTitle className="flex items-center space-x-2">
-                      <span>📚</span>
-                      <span>{category}</span>
-                      <Badge variant="secondary">Top 3</Badge>
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent className="space-y-3">
+          {activeTab === 'category' && (
+            <Card className="bg-white">
+              <CardHeader>
+                <CardTitle className="flex items-center space-x-2">
+                  <span>📚</span>
+                  <span>Category Leaderboard</span>
+                  <Badge variant="secondary">Top 3</Badge>
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                {Object.entries(categoryRankings).map(([category, rankings]) => (
+                  <div key={category}>
+                    <h3 className="text-lg font-semibold mb-2">{category}</h3>
                     {rankings.map((rankedUser) => (
                       <RankingCard 
                         key={`${category}-${rankedUser.id}`} 
@@ -192,13 +227,15 @@ const Rankings = () => {
                         isCurrentUser={user?.id === rankedUser.id}
                       />
                     ))}
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          </TabsContent>
-        </Tabs>
+                  </div>
+                ))}
+              </CardContent>
+            </Card>
+          )}
+        </div>
       </div>
+      
+      <Footer />
     </div>
   );
 };

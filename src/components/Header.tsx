@@ -52,6 +52,7 @@ const Header = ({ onSearch }: HeaderProps) => {
   const navItems = [
     { name: 'Accueil', path: '/' },
     { name: 'Quiz', path: '/quiz' },
+    { name: 'Messages', path: '/messages' },
     { name: 'Classement', path: '/rankings' }
   ];
 
@@ -64,7 +65,7 @@ const Header = ({ onSearch }: HeaderProps) => {
       }`}>
         <div className={`max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 transition-all duration-500 ${
           isScrolled 
-            ? 'bg-white/70 backdrop-blur-xl border border-gray-200/50 shadow-lg rounded-full py-2 px-6' 
+            ? 'bg-white/70 backdrop-blur-xl border border-gray-200/50 shadow-lg rounded-full py-2 px-6 mx-8' 
             : 'bg-white/80 backdrop-blur-lg border-b border-gray-200 py-4'
         }`}>
           <div className="flex items-center justify-between">
