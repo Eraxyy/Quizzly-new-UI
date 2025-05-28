@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import Header from '@/components/Header';
@@ -105,15 +104,15 @@ const Index = () => {
     <div className="min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-indigo-50">
       <Header onSearch={setSearchQuery} />
       
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-8">
         {/* Hero Section */}
         <section className="text-center mb-12">
           <h1 className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-purple-600 via-blue-600 to-indigo-600 bg-clip-text text-transparent mb-4">
-            Challenge Your Mind
+            Défiez Votre Esprit
           </h1>
           <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
-            Join thousands of quiz enthusiasts and test your knowledge across various topics. 
-            Climb the leaderboards and become a quiz champion!
+            Rejoignez des milliers de passionnés de quiz et testez vos connaissances sur divers sujets. 
+            Grimpez dans les classements et devenez un champion des quiz !
           </p>
           
           {/* Stats */}
@@ -121,19 +120,19 @@ const Index = () => {
             <Card className="bg-white/80 backdrop-blur-sm border-purple-200">
               <CardContent className="p-6 text-center">
                 <p className="text-3xl font-bold text-purple-600">{stats.totalQuizzes.toLocaleString()}</p>
-                <p className="text-gray-600">Quizzes Available</p>
+                <p className="text-gray-600">Quiz Disponibles</p>
               </CardContent>
             </Card>
             <Card className="bg-white/80 backdrop-blur-sm border-blue-200">
               <CardContent className="p-6 text-center">
                 <p className="text-3xl font-bold text-blue-600">{stats.totalPlayers.toLocaleString()}</p>
-                <p className="text-gray-600">Active Players</p>
+                <p className="text-gray-600">Joueurs Actifs</p>
               </CardContent>
             </Card>
             <Card className="bg-white/80 backdrop-blur-sm border-indigo-200">
               <CardContent className="p-6 text-center">
                 <p className="text-3xl font-bold text-indigo-600">{stats.questionsAnswered.toLocaleString()}</p>
-                <p className="text-gray-600">Questions Answered</p>
+                <p className="text-gray-600">Questions Répondues</p>
               </CardContent>
             </Card>
           </div>
@@ -146,11 +145,11 @@ const Index = () => {
             <section className="mb-8">
               <div className="flex items-center justify-between mb-6">
                 <h2 className="text-2xl font-bold text-gray-900">
-                  {searchQuery ? `Search Results (${filteredQuizzes.length})` : 'Featured Quizzes'}
+                  {searchQuery ? `Résultats de recherche (${filteredQuizzes.length})` : 'Quiz en Vedette'}
                 </h2>
                 {searchQuery && (
                   <Badge variant="outline" className="text-purple-600 border-purple-600">
-                    Searching: "{searchQuery}"
+                    Recherche: "{searchQuery}"
                   </Badge>
                 )}
               </div>
@@ -163,8 +162,8 @@ const Index = () => {
               
               {filteredQuizzes.length === 0 && searchQuery && (
                 <div className="text-center py-12">
-                  <p className="text-gray-600 text-lg">No quizzes found matching "{searchQuery}"</p>
-                  <p className="text-gray-500 mt-2">Try searching for different keywords or browse our featured quizzes</p>
+                  <p className="text-gray-600 text-lg">Aucun quiz trouvé pour "{searchQuery}"</p>
+                  <p className="text-gray-500 mt-2">Essayez de rechercher avec d'autres mots-clés ou parcourez nos quiz en vedette</p>
                 </div>
               )}
             </section>
@@ -176,21 +175,21 @@ const Index = () => {
             {user && (
               <Card className="mb-6 bg-gradient-to-br from-purple-500 to-blue-600 text-white">
                 <CardHeader>
-                  <CardTitle className="text-white">Your Stats</CardTitle>
+                  <CardTitle className="text-white">Vos Statistiques</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-3">
                     <div className="flex justify-between">
-                      <span>Current Rank</span>
+                      <span>Rang Actuel</span>
                       <span className="font-bold">#{user.rank}</span>
                     </div>
                     <div className="flex justify-between">
-                      <span>Total Score</span>
+                      <span>Score Total</span>
                       <span className="font-bold">{user.score.toLocaleString()}</span>
                     </div>
                     <div className="flex justify-between">
-                      <span>Quizzes Completed</span>
-                      <span className="font-bold">23</span>
+                      <span>Quiz Complétés</span>
+                      <span className="font-bold">{user.quizzesCompleted}</span>
                     </div>
                   </div>
                 </CardContent>
@@ -202,7 +201,7 @@ const Index = () => {
               <CardHeader>
                 <CardTitle className="flex items-center space-x-2">
                   <span>🏆</span>
-                  <span>Daily Leaderboard</span>
+                  <span>Classement Quotidien</span>
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-3">
