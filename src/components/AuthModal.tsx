@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import { Button } from '@/components/ui/button';
@@ -18,7 +17,7 @@ const AuthModal = ({ open, onOpenChange, defaultTab = 'login' }: AuthModalProps)
   const { login, register, isLoading } = useAuth();
   const [loginData, setLoginData] = useState({ email: '', password: '' });
   const [registerData, setRegisterData] = useState({ email: '', password: '', username: '' });
-  const [activeTab, setActiveTab] = useState(defaultTab);
+  const [activeTab, setActiveTab] = useState<'login' | 'register'>(defaultTab);
 
   useEffect(() => {
     setActiveTab(defaultTab);
@@ -55,7 +54,7 @@ const AuthModal = ({ open, onOpenChange, defaultTab = 'login' }: AuthModalProps)
           </DialogTitle>
         </DialogHeader>
 
-        <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+        <Tabs value={activeTab} onValueChange={(value) => setActiveTab(value as 'login' | 'register')} className="w-full">
           <TabsList className="grid w-full grid-cols-2">
             <TabsTrigger value="login">Connexion</TabsTrigger>
             <TabsTrigger value="register">Inscription</TabsTrigger>
