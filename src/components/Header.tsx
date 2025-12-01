@@ -7,7 +7,6 @@ import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import AuthModal from './AuthModal';
-import { ThemeToggle } from './ThemeToggle';
 
 interface HeaderProps {
   onSearch?: (query: string) => void;
@@ -66,8 +65,8 @@ const Header = ({ onSearch }: HeaderProps) => {
       }`}>
         <div className={`max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 transition-all duration-500 ${
           isScrolled 
-            ? 'bg-background/70 backdrop-blur-xl border border-border/50 shadow-lg rounded-full py-2 px-6 mx-8' 
-            : 'bg-background/80 backdrop-blur-lg border-b border-border py-4'
+            ? 'bg-white/70 backdrop-blur-xl border border-gray-200/50 shadow-lg rounded-full py-2 px-6 mx-8' 
+            : 'bg-white/80 backdrop-blur-lg border-b border-gray-200 py-4'
         }`}>
           <div className="flex items-center justify-between">
             {/* Barre de recherche étendue */}
@@ -100,7 +99,7 @@ const Header = ({ onSearch }: HeaderProps) => {
               <>
                 {/* Titre Quizzly à gauche */}
                 <div className="flex items-center">
-                  <h1 className="text-xl font-bold bg-gradient-to-r from-purple-500 to-blue-500 bg-clip-text text-transparent">
+                  <h1 className="text-xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
                     Quizzly
                   </h1>
                 </div>
@@ -111,10 +110,10 @@ const Header = ({ onSearch }: HeaderProps) => {
                     <Link
                       key={item.name}
                       to={item.path}
-                      className={`text-sm font-medium transition-colors hover:text-primary ${
+                      className={`text-sm font-medium transition-colors hover:text-purple-600 ${
                         location.pathname === item.path 
-                          ? 'text-primary' 
-                          : 'text-foreground/80'
+                          ? 'text-purple-600' 
+                          : 'text-gray-700'
                       }`}
                     >
                       {item.name}
@@ -124,17 +123,14 @@ const Header = ({ onSearch }: HeaderProps) => {
 
                 {/* Contrôles droite */}
                 <div className="flex items-center space-x-3">
-                  {/* Bouton Theme Toggle */}
-                  <ThemeToggle />
-                  
                   {/* Bouton Search */}
                   <Button
                     variant="ghost"
                     size="sm"
                     onClick={() => setIsSearchExpanded(true)}
-                    className="p-2 hover:bg-accent rounded-full transition-all duration-300"
+                    className="p-2 hover:bg-gray-100 rounded-full transition-all duration-300"
                   >
-                    <Search className="h-5 w-5 text-foreground" />
+                    <Search className="h-5 w-5 text-gray-600" />
                   </Button>
 
                   {/* Auth/User Menu */}
@@ -150,7 +146,7 @@ const Header = ({ onSearch }: HeaderProps) => {
                           </Avatar>
                         </Button>
                       </DropdownMenuTrigger>
-                      <DropdownMenuContent className="w-56 bg-card" align="end">
+                      <DropdownMenuContent className="w-56 bg-white" align="end">
                         <DropdownMenuItem asChild>
                           <Link to="/profile" className="flex items-center">
                             <User className="mr-2 h-4 w-4" />
@@ -174,13 +170,13 @@ const Header = ({ onSearch }: HeaderProps) => {
                       <Button 
                         variant="ghost"
                         onClick={() => handleAuthClick('login')}
-                        className="text-sm font-medium hover:text-primary"
+                        className="text-sm font-medium hover:text-purple-600"
                       >
                         Connexion
                       </Button>
                       <Button 
                         onClick={() => handleAuthClick('register')}
-                        className={`bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600 text-white text-sm transition-all duration-500 ${
+                        className={`bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-sm transition-all duration-500 ${
                           isScrolled ? 'rounded-full' : ''
                         }`}
                       >
