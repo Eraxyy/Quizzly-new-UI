@@ -7,6 +7,7 @@ import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import AuthModal from './AuthModal';
+import { ThemeToggle } from './ThemeToggle';
 
 interface HeaderProps {
   onSearch?: (query: string) => void;
@@ -123,14 +124,17 @@ const Header = ({ onSearch }: HeaderProps) => {
 
                 {/* Contrôles droite */}
                 <div className="flex items-center space-x-3">
+                  {/* Bouton Theme Toggle */}
+                  <ThemeToggle />
+                  
                   {/* Bouton Search */}
                   <Button
                     variant="ghost"
                     size="sm"
                     onClick={() => setIsSearchExpanded(true)}
-                    className="p-2 hover:bg-gray-100 rounded-full transition-all duration-300"
+                    className="p-2 hover:bg-accent rounded-full transition-all duration-300"
                   >
-                    <Search className="h-5 w-5 text-gray-600" />
+                    <Search className="h-5 w-5 text-foreground" />
                   </Button>
 
                   {/* Auth/User Menu */}
